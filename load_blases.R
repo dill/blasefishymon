@@ -22,3 +22,7 @@ write.table(cc[[i]]$homeScore, file="home_score",
             col.names=FALSE, row.names=FALSE)
 write.table(cc[[i]]$awayScore, file="away_score",
             col.names=FALSE, row.names=FALSE)
+
+
+write.table(length(cc[[i]]$basesOccupied), file="bases_occupied",
+            col.names=FALSE, row.names=FALSE)

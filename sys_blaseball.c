@@ -77,47 +77,54 @@ int system_cpu(void)
 
 int system_memory(void)
 {
-	u_int64_t mem_used, mem_max, swap_used, swap_max;
-	u_int64_t value, mem_cache, mem_buffers, swap_cache;
-	static int delay = 0;
-	FILE *mem;
-	char name[256];
-	char line[256];
+  u_int64_t mem_used, mem_max, swap_used, swap_max;
+  u_int64_t value, mem_cache, mem_buffers, swap_cache;
+  static int delay = 0;
+  FILE *mem;
+  char name[256];
+  char line[256];
 
-	if (delay-- <= 0) {
-		mem = fopen("/proc/meminfo", "r"); 
-		if (mem == NULL) return 0;
-		while (!feof(mem)) {
-			if (fgets(line, 256, mem) == NULL) break;
-			if (sscanf(line, "%s %Ld", name, &value) != 2) continue;
+  if (delay-- <= 0) {
+    stat = fopen("bases_occupied", "r");
+    fscanf(stat, "%d", &mem_used);
+    fclose(stat);
+    //mem = fopen("/proc/meminfo", "r");
+    //if (mem == NULL) return 0;
+    //while (!feof(mem)) {
+    //  if (fgets(line, 256, mem) == NULL) break;
+    //  if (sscanf(line, "%s %Ld", name, &value) != 2) continue;
 
-			/* Before I calculate mem_used, I store MemFree in the mem_used
-			 * variable. The same with swap_used/SwapFree */
-			if (strcmp(name, "MemTotal:") == 0) mem_max = value;
-		    else if (strcmp(name, "Cached:") == 0) mem_cache = value;
-		    else if (strcmp(name, "Buffers:") == 0) mem_buffers = value;
-		    else if (strcmp(name, "MemFree:") == 0) mem_used = value;
-		    else if (strcmp(name, "SwapTotal:") == 0) swap_max = value;
-		    else if (strcmp(name, "SwapFree:") == 0) swap_used = value;
-		    else if (strcmp(name, "SwapCached:") == 0) swap_cache = value;
-		}
-		fclose(mem);
-		
-		mem_used = mem_max - ( mem_used + mem_cache + mem_buffers );
+    //  /* Before I calculate mem_used, I store MemFree in the mem_used
+    //   * variable. The same with swap_used/SwapFree */
+    //  if (strcmp(name, "MemTotal:") == 0) mem_max = value;
+    //    else if (strcmp(name, "Cached:") == 0) mem_cache = value;
+    //    else if (strcmp(name, "Buffers:") == 0) mem_buffers = value;
+    //    else if (strcmp(name, "MemFree:") == 0) mem_used = value;
+    //    else if (strcmp(name, "SwapTotal:") == 0) swap_max = value;
+    //    else if (strcmp(name, "SwapFree:") == 0) swap_used = value;
+    //    else if (strcmp(name, "SwapCached:") == 0) swap_cache = value;
+    //}
+    //fclose(mem);
 
-		if( mem_used > mem_max ) mem_used = mem_max;
+    //mem_used = mem_max - ( mem_used + mem_cache + mem_buffers );
 
-		swap_used = swap_max - swap_used;
+    //if( mem_used > mem_max ) mem_used = mem_max;
 
-		/* proc reports usage in kb, bm wants it in bytes. */
-		bm.mem_used  = 1024 * mem_used;
-		bm.mem_max   = 1024 * mem_max;
-		bm.swap_used = 1024 * swap_used;
-		bm.swap_max  = 1024 * swap_max;
+    //swap_used = swap_max - swap_used;
 
-		return 1; /* update */
-	}
-	return 0; /* nothing changed, don't update */
+    mem_max =4;
+    swap_used = 0;
+    swap_max = 0;
+
+    /* proc reports usage in kb, bm wants it in bytes. */
+    bm.mem_used  = 1024 * mem_used;
+    bm.mem_max   = 1024 * mem_max;
+    bm.swap_used = 1024 * swap_used;
+    bm.swap_max  = 1024 * swap_max;
+
+    return 1; /* update */
+  }
+  return 0; /* nothing changed, don't update */
 }
 
 #ifdef ENABLE_MEMSCREEN
