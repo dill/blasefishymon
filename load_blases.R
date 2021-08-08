@@ -11,6 +11,14 @@ cc <- lapply(content(rr)$data, `[[`, "data")
 
 i <- 1
 
+# water level
+write.table(length(cc[[i]]$basesOccupied), file="bases_occupied",
+            col.names=FALSE, row.names=FALSE)
+
+# home odds (printed)
+write.table(round(cc[[i]]$homeOdds*100, 0), file="home_odds",
+            col.names=FALSE, row.names=FALSE)
+
 
 write.table(cc[[i]]$homeTeamBatterCount, file="home_batter_count",
             col.names=FALSE, row.names=FALSE)
@@ -24,5 +32,3 @@ write.table(cc[[i]]$awayScore, file="away_score",
             col.names=FALSE, row.names=FALSE)
 
 
-write.table(length(cc[[i]]$basesOccupied), file="bases_occupied",
-            col.names=FALSE, row.names=FALSE)

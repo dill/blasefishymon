@@ -10,10 +10,10 @@
 
  - Water level depends on how much physical and virtual memory is used by the system.
  - CPU activity makes water "boil" and creates bubbles.
- - CPU meter near the bottom shows actual value in percent.
+ - Text at the bottom shows odds for the team.
  - As bases are occupied, water level goes up.
- - When system runs out of physical memory and begins using swap, both water and air colors change depending on amount of swap used.
- - There is a cute yellow duck swimming from one corner of the dockapp to another. The duck really doesn't do anything at the moment,
+ - When more blases are occupied than exist (this is Blaseball, afterall), both water and air colors change.
+ - There is a cute yellow duck swimming from one side to another. The duck really doesn't do anything.
 
 # Credit
 

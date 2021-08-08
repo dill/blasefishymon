@@ -794,7 +794,7 @@ unsigned int real_waterlevel_min, real_waterlevel_max;
 static void bubblemon_update(int proximity)
 {
     Bubble *bubbles = bm.bubbles;
-    unsigned int i, loadPercentage, *col, x, y;
+    unsigned int i, loadPercentage, *col, x, y, loadodds;
     unsigned char *ptr, *buf, *buf_ptr;
     unsigned int aircolor, watercolor, aliascolor;
     unsigned int waterlevels_goal;
@@ -811,6 +811,9 @@ static void bubblemon_update(int proximity)
 
     /* Find out the CPU load */
     loadPercentage = system_cpu();
+
+    // odds
+    loadodds = system_odds();
 
 #ifdef ENABLE_MEMSCREEN
     /* get loadavg */
@@ -1113,17 +1116,17 @@ static void bubblemon_update(int proximity)
      * about this isn't the right one :) */
 #if defined(ENABLE_CPU) && defined(ENABLE_MEMSCREEN)
     if (cpu_enabled || memscreen_enabled) {
-	realtime_alpha_blend_of_cpu_usage(loadPercentage, proximity);
+	realtime_alpha_blend_of_cpu_usage(loadodds, proximity);
     }
 #endif
 #if defined(ENABLE_CPU) && !defined(ENABLE_MEMSCREEN)
     if (cpu_enabled) {
-	realtime_alpha_blend_of_cpu_usage(loadPercentage, proximity);
+	realtime_alpha_blend_of_cpu_usage(loadodds, proximity);
     }
 #endif
 #if !defined(ENABLE_CPU) && defined(ENABLE_MEMSCREEN)
     if (memscreen_enabled) {
-	realtime_alpha_blend_of_cpu_usage(loadPercentage, proximity);
+	realtime_alpha_blend_of_cpu_usage(loadodds, proximity);
     }
 #endif
 
