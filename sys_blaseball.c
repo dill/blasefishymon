@@ -112,9 +112,9 @@ int system_memory(void)
 
     //swap_used = swap_max - swap_used;
 
-    mem_max =4;
-    swap_used = 0;
-    swap_max = 0;
+    mem_max = 4.0;
+    swap_used = 0.0;
+    swap_max = 0.0;
 
     /* proc reports usage in kb, bm wants it in bytes. */
     bm.mem_used  = 1024 * mem_used;
