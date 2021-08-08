@@ -86,7 +86,7 @@ int system_memory(void)
 
   if (delay-- <= 0) {
     stat = fopen("bases_occupied", "r");
-    fscanf(stat, "%d", &mem_used);
+    fscanf(stat, "%Ld", &mem_used);
     fclose(stat);
     //mem = fopen("/proc/meminfo", "r");
     //if (mem == NULL) return 0;
@@ -106,15 +106,16 @@ int system_memory(void)
     //}
     //fclose(mem);
 
-    //mem_used = mem_max - ( mem_used + mem_cache + mem_buffers );
-
-    //if( mem_used > mem_max ) mem_used = mem_max;
-
-    //swap_used = swap_max - swap_used;
-
     mem_max = 4.0;
     swap_used = 0.0;
     swap_max = 0.0;
+
+    //mem_used = mem_max - ( mem_used + mem_cache + mem_buffers );
+
+    if( mem_used > mem_max ) mem_used = mem_max;
+
+    //swap_used = swap_max - swap_used;
+
 
     /* proc reports usage in kb, bm wants it in bytes. */
     bm.mem_used  = 1024 * mem_used;

@@ -9,7 +9,7 @@ cc <- lapply(content(rr)$data, `[[`, "data")
 #cc <- lapply(cc, function(xx) as.data.frame(Filter(function(x) length(x)>0,xx)))
 #cc <- do.call(rbind.data.frame, cc)
 
-ii <- 1
+i <- 1
 
 
 write.table(cc[[i]]$homeTeamBatterCount, file="home_batter_count",
