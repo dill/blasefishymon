@@ -106,7 +106,7 @@ int system_memory(void)
     //}
     //fclose(mem);
 
-    mem_max = 4.0;
+    mem_max = 3.0;
     swap_used = 0.0;
     swap_max = 0.0;
 
