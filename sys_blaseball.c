@@ -123,16 +123,16 @@ int system_memory(void)
 #ifdef ENABLE_MEMSCREEN
 void system_loadavg(void)
 {
-    FILE *avg;
-    static int avg_delay;
-    if (avg_delay-- <= 0) {
-	avg = fopen("/proc/loadavg", "r");
-	fscanf(avg, "%d.%d %d.%d %d.%d", &bm.loadavg[0].i, &bm.loadavg[0].f,
-		&bm.loadavg[1].i, &bm.loadavg[1].f,
-		&bm.loadavg[2].i, &bm.loadavg[2].f);
-	fclose(avg);
-	avg_delay = ROLLVALUE;
-    }
+  FILE *avg;
+  static int avg_delay;
+  if (avg_delay-- <= 0) {
+    avg = fopen("home_score", "r");
+    fscanf(avg, "%d.%d", &bm.loadavg[0].i, &bm.loadavg[0].f);//,
+           //&bm.loadavg[1].i, &bm.loadavg[1].f,
+           //&bm.loadavg[2].i, &bm.loadavg[2].f);
+    fclose(avg);
+    avg_delay = ROLLVALUE;
+  }
 }
 #endif				/* ENABLE_MEMSCREEN */
 
