@@ -80,7 +80,7 @@ int system_memory(void)
   u_int64_t mem_used, mem_max, swap_used, swap_max;
   u_int64_t value, mem_cache, mem_buffers, swap_cache;
   static int delay = 0;
-  FILE *mem;
+  FILE *stat;
   char name[256];
   char line[256];
 
