@@ -24,6 +24,7 @@ int system_cpu(void);		/* return total CPU load in percent */
 int system_memory(void);	/* set memory related values in BubbleMonData
 				   and return 1, or return 0 if memory didn't
 				   change */
+int system_odds(void);
 #ifdef ENABLE_MEMSCREEN
 void system_loadavg(void);	/* get current load average and put into
 				   bm->loadavg[].{i,f} */

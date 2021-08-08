@@ -30,6 +30,17 @@
 
 extern BubbleMonData bm;
 
+// odds
+int system_odds(void)
+{
+  FILE *odds;
+  u_int64_t homeodds;
+  odds = fopen("home_odds", "r");
+  fscanf(odds, "%d", &homeodds);
+  fclose(odds);
+  return homeodds;
+}
+
 /* returns current CPU load in percent, 0 to 100 */
 int system_cpu(void)
 {
@@ -135,7 +146,7 @@ void system_loadavg(void)
   static int avg_delay;
   if (avg_delay-- <= 0) {
     avg = fopen("home_score", "r");
-    fscanf(avg, "%d.%d", &bm.loadavg[0].i, &bm.loadavg[0].f),
+    fscanf(avg, "%d.%d", &bm.loadavg[0].i, &bm.loadavg[0].f,
            &bm.loadavg[1].i, &bm.loadavg[1].f,
            &bm.loadavg[2].i, &bm.loadavg[2].f);
     fclose(avg);
@@ -144,16 +155,6 @@ void system_loadavg(void)
 }
 #endif				/* ENABLE_MEMSCREEN */
 
-// odds
-int system_odds(void)
-{
-  FILE *odds;
-  u_int64_t homeodds;
-  odds = fopen("home_odds", "r");
-  fscanf(odds, "%d", &homeodds);
-  fclose(odds);
-  return homeodds;
-}
 
 #ifdef ENABLE_FISH
 #define FISH_MAX_SPEED	8

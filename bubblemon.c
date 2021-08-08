@@ -1116,23 +1116,23 @@ static void bubblemon_update(int proximity)
      * about this isn't the right one :) */
 #if defined(ENABLE_CPU) && defined(ENABLE_MEMSCREEN)
     if (cpu_enabled || memscreen_enabled) {
-	realtime_alpha_blend_of_cpu_usage(loadodds, proximity);
+      realtime_alpha_blend_of_cpu_usage(loadodds, proximity);
     }
 #endif
 #if defined(ENABLE_CPU) && !defined(ENABLE_MEMSCREEN)
     if (cpu_enabled) {
-	realtime_alpha_blend_of_cpu_usage(loadodds, proximity);
+      realtime_alpha_blend_of_cpu_usage(loadodds, proximity);
     }
 #endif
 #if !defined(ENABLE_CPU) && defined(ENABLE_MEMSCREEN)
     if (memscreen_enabled) {
-	realtime_alpha_blend_of_cpu_usage(loadodds, proximity);
+      realtime_alpha_blend_of_cpu_usage(loadodds, proximity);
     }
 #endif
 
     /* Remember where we have been poking around this round */
     last_action_min = action_min;
-}				/* bubblemon_update */
+}   /* bubblemon_update */
 
 #ifdef ENABLE_MEMSCREEN
 /* draws 4x8 digits for the memory/swap panel */
