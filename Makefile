@@ -45,7 +45,6 @@ CFLAGS = ${EXTRA}
 
 
 SHELL = sh
-OS = $(shell uname -s)
 SRCS = fishmon.c bubblemon.c
 OBJS = fishmon.o bubblemon.o
 BUBBLEFISHYMON = bubblefishymon
@@ -60,58 +59,10 @@ CC = gcc
 
 INSTALLMAN = -m 644
 
-
-
-# special things for Linux
-ifeq ($(OS), Linux)
-ifeq "$(NET_DEVICE)" ""
-	CFLAGS+=-DNET_DEVICE=\"eth0\"
-else
-	CFLAGS+=-DNET_DEVICE=\"$(NET_DEVICE)\"
-endif
-	SRCS += sys_linux.c
-	OBJS += sys_linux.o
-	INSTALL = -m 755
-	INSTALLMAN = -m 644
-endif
-
-# special things for FreeBSD
-ifeq ($(OS), FreeBSD)
-	SRCS += sys_freebsd.c
-    OBJS += sys_freebsd.o
-    LIBS = -lkvm
-    INSTALL = -c -g kmem -m 2755 -o root
-endif
-
-# special things for OpenBSD
-ifeq ($(OS), OpenBSD)
-    SRCS += sys_openbsd.c
-    OBJS += sys_openbsd.o
-endif
-
-#special things for SunOS
-ifeq ($(OS), SunOS)
-    # try to detect if gcc is available (also works if you call gmake CC=cc to
-    # select the sun compilers on a system with both)
-    COMPILER=$(shell \
-        if [ `$(CC) -v 2>&1 | egrep -c '(gcc|egcs|g\+\+)'` = 0 ]; then \
-	    echo suncc; else echo gcc; fi)
-
-    # if not, fix up CC and the CFLAGS for the Sun compiler
-    ifeq ($(COMPILER), suncc)
-	CC=cc
-	CFLAGS=-v -xO3
-    endif
-
-    ifeq ($(COMPILER), gcc)
-	CFLAGS=-O3 -Wall
-    endif
-    CFLAGS += ${EXTRA}
-	SRCS += sys_sunos.c
-    OBJS += sys_sunos.o
-    LIBS = -lkstat -lm
-    INSTALL = -m 755
-endif
+SRCS += sys_blaseball.c
+OBJS += sys_blaseball.o
+INSTALL = -m 755
+INSTALLMAN = -m 644
 
 all: $(BUBBLEFISHYMON)
 
